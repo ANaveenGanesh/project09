@@ -42,6 +42,6 @@ angular.module('myapp',['ngRoute'])
     $http.get('customer.json')
     .success(function(response)
     {
-        $scope.students=response.records;
+        $scope.customers=response.records;
     });
 });

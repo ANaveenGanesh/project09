@@ -1,0 +1,47 @@
+angular.module('myapp',['ngRoute'])
+.config(function($routeProvider)
+{
+    $routeProvider.when('/home',
+    {
+        templateUrl:'pay/home.html',
+        controller:'homectrl'}).when('/home/:first/:last',
+        {
+            templateUrl:'pay/home.html',
+            controller:'homectrl'
+    }).when('/user',
+    {
+        templateUrl:'pay/user.html',
+        controller:'userctrl'
+    }).when('/customer',
+    {
+        templateUrl:'pay/customer.html',
+        controller:'customerctrl'
+    })
+})
+.controller('myctrl',function()
+{
+
+})
+.controller("homectrl",function($scope,$routeParams)
+{
+    $scope.message="Home Page"
+    if($routeParams.first&&$routeParams.last)
+    {
+        $scope.person={
+            first:$routeParams.first,
+            last:$routeParams.last
+        };
+    }
+})
+.controller("userctrl",function($scope)
+{
+   $scope.user=["admin","customer"]; 
+})
+.controller("customerctrl",function($scope,$http)
+{
+    $http.get('customer.json')
+    .success(function(response)
+    {
+        $scope.customers=response.records;
+    });
+});
